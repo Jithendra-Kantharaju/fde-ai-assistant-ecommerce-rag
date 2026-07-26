@@ -1,0 +1,56 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<div class="ai-widget-shell" [ngClass]="{ 'ai-widget-shell--open': isOpen() }">
+  @if (isOpen()) {
+    <mat-card class="ai-widget-panel mat-elevation-z10">
+      <div class="ai-widget-header">
+        <div>
+          <div class="ai-widget-title">AI Assistant</div>
+          <div class="ai-widget-subtitle">Product and pricing help from Juice Shop content</div>
+        </div>
+        <button mat-icon-button type="button" (click)="toggleWidget()" aria-label="Close AI assistant">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="ai-widget-suggestions">
+        @for (question of suggestedQuestions; track question) {
+          <button mat-stroked-button type="button" class="ai-widget-chip" (click)="applySuggestion(question)">
+            {{ question }}
+          </button>
+        }
+      </div>
+
+      <div class="ai-widget-messages" aria-live="polite">
+        @for (message of messages(); track $index) {
+          <div class="ai-widget-message" [class.ai-widget-message--assistant]="message.role === 'assistant'" [class.ai-widget-message--user]="message.role === 'user'">
+            {{ message.content }}
+          </div>
+        }
+      </div>
+
+      <mat-form-field appearance="outline" class="ai-widget-input">
+        <mat-label>Ask a question</mat-label>
+        <textarea matInput rows="3" [(ngModel)]="input"></textarea>
+      </mat-form-field>
+
+      <div class="ai-widget-actions">
+        <button mat-flat-button color="primary" type="button" (click)="sendMessage()" [disabled]="isLoading()">
+          @if (isLoading()) {
+            <mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+          } @else {
+            <mat-icon>send</mat-icon>
+          }
+          <span>Send</span>
+        </button>
+      </div>
+    </mat-card>
+  }
+
+  <button mat-fab color="primary" type="button" class="ai-widget-launcher" (click)="toggleWidget()" aria-label="Open AI assistant">
+    <mat-icon>{{ isOpen() ? 'support_agent' : 'smart_toy' }}</mat-icon>
+  </button>
+</div>

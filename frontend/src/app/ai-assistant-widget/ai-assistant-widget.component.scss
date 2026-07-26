@@ -1,0 +1,126 @@
+/*
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
+:host {
+  position: fixed;
+  right: $space-l;
+  bottom: $space-l;
+  z-index: 1100;
+  display: block;
+}
+
+.ai-widget-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $space-s;
+}
+
+.ai-widget-panel {
+  width: min(380px, calc(100vw - #{$space-l * 2}));
+  max-height: min(70vh, 640px);
+  border-radius: $space-s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: $space-s;
+  padding: $space-m;
+  background: linear-gradient(180deg, rgba(21, 28, 38, 0.98), rgba(12, 16, 24, 0.98));
+  color: #f4f7fb;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.ai-widget-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-s;
+}
+
+.ai-widget-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ai-widget-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: rgba(244, 247, 251, 0.72);
+}
+
+.ai-widget-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ai-widget-chip {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f4f7fb;
+}
+
+.ai-widget-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow-y: auto;
+  min-height: 120px;
+  max-height: 280px;
+  padding-right: 0.2rem;
+}
+
+.ai-widget-message {
+  border-radius: 16px;
+  padding: 0.75rem 0.9rem;
+  line-height: 1.4;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.ai-widget-message--assistant {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ai-widget-message--user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #ffb347, #ff7a18);
+  color: #1a1208;
+  font-weight: 600;
+}
+
+.ai-widget-input {
+  width: 100%;
+}
+
+.ai-widget-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ai-widget-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ai-widget-launcher {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 600px) {
+  :host {
+    right: $space-s;
+    bottom: $space-s;
+  }
+
+  .ai-widget-panel {
+    width: min(100vw - #{$space-s * 2}, 360px);
+  }
+}
